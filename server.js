@@ -1,14 +1,12 @@
-const express = require("express");
-const { animals } = require("./data/animals");
 const fs = require("fs");
 const path = require("path");
+const express = require("express");
+const { animals } = require("./data/animals");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
-// parse incoming JSON data
 app.use(express.json());
 
 function filterByQuery(query, animalsArray) {
@@ -93,7 +91,7 @@ app.get("/api/animals/:id", (req, res) => {
 });
 
 app.post("/api/animals", (req, res) => {
-  // set id badsed on what hte next index of the array will be
+  // set id based on what the next index of the array will be
   req.body.id = animals.length.toString();
 
   if (!validateAnimal(req.body)) {
@@ -103,7 +101,6 @@ app.post("/api/animals", (req, res) => {
     res.json(animal);
   }
 });
-
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
 });
